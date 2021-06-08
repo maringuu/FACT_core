@@ -26,11 +26,13 @@ def main(distribution):
     _install_yara(distribution)
 
     # build extraction docker container
-    logging.info('Building fact extraction container')
+    # MARINGUU "Building" is wrong, we should say pulling
+    #logging.info('Building fact extraction container')
 
-    output, return_code = execute_shell_command_get_return_code('docker pull fkiecad/fact_extractor')
-    if return_code != 0:
-        raise InstallationError(f'Failed to pull extraction container:\n{output}')
+    # MARINGUU replace by manually saying that we need this docker container
+    #output, return_code = execute_shell_command_get_return_code('docker pull fkiecad/fact_extractor')
+    #if return_code != 0:
+    #    raise InstallationError(f'Failed to pull extraction container:\n{output}')
 
     # installing common code modules
     pip3_install_packages('git+https://github.com/fkie-cad/common_helper_yara.git')
