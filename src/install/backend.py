@@ -39,7 +39,9 @@ def main(distribution):
     pip3_install_packages('git+https://github.com/mass-project/common_analysis_base.git')
 
     # install plug-in dependencies
-    _install_plugins(distribution)
+    # MARINGUU TODO install plugins with a seperate flag (e.g. -P)
+    # This should then ONLY pull/build docker images
+    #_install_plugins(distribution)
 
     # configure environment
     _edit_environment()
