@@ -7,9 +7,9 @@ echo "------------------------------------"
 echo " Installing input_vectors Plugin "
 echo "------------------------------------"
 
-docker pull fkiecad/radare-web-gui:latest || exit 1
+#docker pull fkiecad/radare-web-gui:latest || exit 1
 
 echo "Building docker container"
-docker build -t input-vectors . || exit 1
+#docker build -t input-vectors . || exit 1
 
 exit 0
