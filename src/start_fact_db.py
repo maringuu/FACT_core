@@ -32,7 +32,7 @@ class FactDb(FactBase):
 
     def __init__(self):
         _, config = program_setup(self.PROGRAM_NAME, self.PROGRAM_DESCRIPTION)
-        self.mongo_server = MongoMgr(config=config)
+        self.mongo_server = MongoMgr(config=config, force_local_mongod=True)
         super().__init__()
 
     def shutdown(self):
