@@ -15,8 +15,9 @@ class MongoMgr:
     mongo server startup and shutdown
     '''
 
-    def __init__(self, config=None, auth=True):
+    def __init__(self, config=None, auth=True, force_local_mongod=False):
         self.config = config
+        self.force_local_mongod=force_local_mongod
         try:
             self.mongo_log_path = config['Logging']['mongoDbLogFile']
         except (KeyError, TypeError):
@@ -38,7 +39,7 @@ class MongoMgr:
             return True
 
     def start(self, _authenticate=True):
-        if self.config['data_storage']['mongo_server'] == 'localhost':
+        if self._should_start_mongod():
             logging.info("Starting local mongo database")
             self.check_file_and_directory_existence_and_permissions()
             auth_option = '--auth ' if _authenticate else ''
@@ -47,6 +48,11 @@ class MongoMgr:
             logging.debug(output)
         else:
             logging.info('using external mongodb: {}:{}'.format(self.config['data_storage']['mongo_server'], self.config['data_storage']['mongo_port']))
+
+
+    def _should_start_mongod(self):
+        return self.config['data_storage']['mongo_server'] == 'localhost' or self.force_local_mongod
+
 
     def check_file_and_directory_existence_and_permissions(self):
         if not os.path.isfile(self.config_path):
@@ -59,7 +65,7 @@ class MongoMgr:
             complete_shutdown('Error: no write permissions for MongoDB storage path: {}'.format(self.mongo_db_file_path))
 
     def shutdown(self):
-        if self.config['data_storage']['mongo_server'] == 'localhost':
+        if self._should_start_mongod():
             logging.info('Stopping local mongo database')
             command = 'mongo --eval "db.shutdownServer()" {}:{}/admin --username {} --password "{}"'.format(
                 self.config['data_storage']['mongo_server'], self.config['data_storage']['mongo_port'],
