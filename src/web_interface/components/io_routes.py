@@ -137,7 +137,7 @@ class IORoutes(ComponentBase):
             firmware = connection.get_complete_object_including_all_summaries(uid)
 
         try:
-            with TemporaryDirectory(dir=get_temp_dir_path(self._config)) as folder:
+            with TemporaryDirectory(dir=self._config.get('data_storage', 'docker_mount_path', fallback='/tmp')) as folder:
                 pdf_path = build_pdf_report(firmware, Path(folder))
                 binary = pdf_path.read_bytes()
         except RuntimeError as error:
