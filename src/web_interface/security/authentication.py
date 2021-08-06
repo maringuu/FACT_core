@@ -37,6 +37,7 @@ def create_user_interface(db):
         active = db.Column(db.Boolean())
         confirmed_at = db.Column(db.DateTime())
         roles = db.relationship('Role', secondary=roles_users, backref=db.backref('users', lazy='dynamic'))
+        fs_uniquifier = db.Column(db.String(255), unique=True, nullable=False)
 
     return UserRoleDbInterface(db, User, Role)
 
