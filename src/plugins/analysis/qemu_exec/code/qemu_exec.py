@@ -19,7 +19,7 @@ from fact_helper_file import get_file_type_from_path
 from requests.exceptions import ReadTimeout
 
 from analysis.PluginBase import AnalysisBasePlugin
-from config import cfg, configparser_cfg
+from config import cfg
 from helperFunctions.docker import run_docker_container
 from helperFunctions.tag import TagColor
 from helperFunctions.uid import create_uid
@@ -84,7 +84,7 @@ class AnalysisPlugin(AnalysisBasePlugin):
     root_path = None
 
     def __init__(self, *args, unpacker=None, **kwargs):
-        self.unpacker = Unpacker(configparser_cfg) if unpacker is None else unpacker
+        self.unpacker = Unpacker() if unpacker is None else unpacker
         super().__init__(*args, **kwargs)
 
     def process_object(self, file_object: FileObject) -> FileObject:

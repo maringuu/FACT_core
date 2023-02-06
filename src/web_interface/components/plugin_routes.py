@@ -4,7 +4,6 @@ import pkgutil
 
 from flask_restx import Resource
 
-from config import configparser_cfg
 from helperFunctions.fileSystem import get_src_dir
 from web_interface.components.component_base import ComponentBase
 from web_interface.rest.rest_resource_base import RestResourceBase
@@ -38,7 +37,7 @@ class PluginRoutes(ComponentBase):
         ]:
             for endpoint, methods in rest_class.ENDPOINTS:
                 self._api.add_resource(
-                    rest_class, endpoint, methods=methods, resource_class_kwargs={'config': configparser_cfg}
+                    rest_class, endpoint, methods=methods, resource_class_kwargs={}
                 )
 
 
