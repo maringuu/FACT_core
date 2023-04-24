@@ -4,16 +4,16 @@
 
     <tr>
         <td>File type</td>
-        <td>{{ firmware.processed_analysis[selected_analysis]['full'] }}</td>
+        <td>{{ result['full'] }}</td>
     </tr>
     <tr>
         <td>MIME</td>
-        <td>{{ firmware.processed_analysis[selected_analysis]['mime'] }}</td>
+        <td>{{ result['mime'] }}</td>
     </tr>
-    {% if 'linguist' in firmware.processed_analysis[selected_analysis] %}
+    {% if 'linguist' in result %}
         <tr>
             <td>Linguist script detection</td>
-            <td><pre>{{ firmware.processed_analysis[selected_analysis]['linguist'] }}</pre></td>
+            <td><pre>{{ result['linguist'] }}</pre></td>
         </tr>
     {% endif %}
 

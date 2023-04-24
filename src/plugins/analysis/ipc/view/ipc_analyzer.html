@@ -14,7 +14,7 @@
             <td class="table-head-light"><b>Type</b></td>
             <td class="table-head-light"><b>Arguments</b></td>
         </tr>
-        {% set ipc_calls = firmware.processed_analysis[selected_analysis]['full']['ipcCalls'] %}
+        {% set ipc_calls = result['full']['ipcCalls'] %}
         {% for target in ipc_calls.keys()|sort %}
             {% set row_count = 1 + ipc_calls[target]|length %}
             <tr>

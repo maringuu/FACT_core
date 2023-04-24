@@ -3,7 +3,7 @@
 
 {% block analysis_result_details %}
 
-{% set analysis = firmware.processed_analysis[selected_analysis] %}
+{% set analysis = result %}
 
 {% if 'files' in analysis %}
     <tr>
@@ -41,7 +41,7 @@
 
 {% block ajax %}
 
-{% set analysis = firmware.processed_analysis[selected_analysis] %}
+{% set analysis = result %}
 
 {% if 'contained_in_file_system' in analysis and analysis.contained_in_file_system == True %}
     <div id="file_results"></div>

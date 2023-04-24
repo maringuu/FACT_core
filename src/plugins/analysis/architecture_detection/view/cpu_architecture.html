@@ -5,7 +5,7 @@
     <td class="table-head-light"><b>Architecture</b></td>
     <td class="table-head-light"><b>Means of Detection</b></td>
 </tr>
-    {% set analysis = firmware.processed_analysis[selected_analysis] %}
+    {% set analysis = result %}
         {# old results do not have the "architectures" key #}
         {% for result, method in analysis.get("architectures", analysis).items() %}
             {% if result | is_not_mandatory_analysis_entry %}

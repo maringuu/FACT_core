@@ -14,13 +14,13 @@
 
 {% block analysis_result_details %}
 
-    {% if 'files' in firmware.processed_analysis[selected_analysis] %}
+    {% if 'files' in result %}
 
         <th class="success" colspan="2">
             Results for Included Files
         </th>
 
-        {% for uid, result in firmware.processed_analysis[selected_analysis]['files'].items() %}
+        {% for uid, result in result['files'].items() %}
 
             <tr data-toggle="collapse" data-target="#collapse-{{ uid }}">
                 <td class="clickable" colspan=2>
@@ -109,7 +109,7 @@
 
 
 {% block ajax %}
-    {% set analysis = firmware.processed_analysis[selected_analysis] %}
+    {% set analysis = result %}
 
     {% if 'parent_flag' in analysis and analysis.parent_flag == True %}
         <div id="file_results"></div>

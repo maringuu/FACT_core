@@ -1,5 +1,7 @@
 {% extends "show_analysis.html" %}
 
+{% set result = firmware.processed_analysis[selected_analysis]["result"] %}
+
 {% block analysis_result %}
 
     <table class="table table-bordered">

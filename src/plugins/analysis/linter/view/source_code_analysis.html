@@ -1,7 +1,7 @@
 {% extends "analysis_plugins/general_information.html" %}
 
 {% block analysis_result_details %}
-    {% set result = firmware.processed_analysis[selected_analysis]['full'] | _linter_reformat_issues %}
+    {% set result = result['full'] | _linter_reformat_issues %}
     {% for symbol, contents in result.items() %}
         <tr>
             <td>{{symbol}}</td>
@@ -14,10 +14,10 @@
             </td>
         </tr>
     {% endfor %}
-    {% if 'warning' in firmware.processed_analysis[selected_analysis] %}
+    {% if 'warning' in result %}
         <tr class="table-warning">
             <td>Warning</td>
-            <td>{{ firmware.processed_analysis[selected_analysis]['warning'] }}</td>
+            <td>{{ result['warning'] }}</td>
         </tr>
     {% endif %}
 {% endblock %}

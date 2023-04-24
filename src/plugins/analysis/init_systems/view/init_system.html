@@ -2,19 +2,19 @@
 
 {% block analysis_result_details %}
 
-    {% if firmware.processed_analysis[selected_analysis]['init_type'] %}
+    {% if result['init_type'] %}
         <tr>
             <td class="table-head-light">Init system</td>
-            <td class="table-head-light">{{ firmware.processed_analysis[selected_analysis]['init_type'][0]}}</td>
+            <td class="table-head-light">{{ result['init_type'][0]}}</td>
         </tr>
     {% endif %}
-    {% if firmware.processed_analysis[selected_analysis]['description'] %}
+    {% if result['description'] %}
         <tr>
             <td>Description</td>
-            <td>{{ firmware.processed_analysis[selected_analysis]['description'][0]}}</td>
+            <td>{{ result['description'][0]}}</td>
         </tr>
     {% endif %}
-    {% for key, value in firmware.processed_analysis[selected_analysis].items()|sort %}
+    {% for key, value in result.items()|sort %}
         {% if key | is_not_mandatory_analysis_entry(['init_type', 'description']) %}
             <tr>
                 <td>{{ key }}</td>

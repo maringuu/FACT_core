@@ -20,6 +20,8 @@ from helperFunctions.tag import TagColor
 from objects.file import FileObject
 from plugins.base import BasePlugin
 
+META_KEYS = {'tags', 'summary', 'analysis_date', 'plugin_version', 'system_version', 'file_system_flag', 'result'}
+
 
 class PluginInitException(Exception):
     def __init__(self, *args, plugin: 'AnalysisBasePlugin'):
@@ -181,7 +183,21 @@ class AnalysisBasePlugin(BasePlugin):  # pylint: disable=too-many-instance-attri
         elif process.exception:
             self._handle_failed_analysis(next_task, process, worker_id, 'Exception')
         else:
-            self.out_queue.put(result.pop())
+            # Plugins can write anything they want to processed_analysis.
+            # We put everthing the plugin wrote in a separate dict.
+            # This matches the behavior of analysis.PluginV0
+            result_fo = result.pop()
+            processed_analysis_entry = result_fo.processed_analysis.pop(self.NAME)
+            result = {}
+            for key in processed_analysis_entry:
+                if key in META_KEYS:
+                    continue
+
+                result[key] = processed_analysis_entry.pop(key)
+
+            processed_analysis_entry['result'] = result
+            result_fo.processed_analysis[self.NAME] = processed_analysis_entry
+            self.out_queue.put(result_fo)
             logging.debug(f'Worker {worker_id}: Finished {self.NAME} analysis on {next_task.uid}')
 
     def _update_duration_stats(self, duration):

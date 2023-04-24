@@ -148,7 +148,8 @@ def create_analysis_entries(file_object: FileObject, fo_backref: FileObjectEntry
             analysis_date=analysis_data.get('analysis_date'),
             summary=_sanitize_list(analysis_data.get('summary', [])),
             tags=analysis_data.get('tags'),
-            result=get_analysis_without_meta(analysis_data),
+            #result=get_analysis_without_meta(analysis_data),
+            result=analysis_data.get('result', {}),
             file_object=fo_backref,
         )
         for plugin_name, analysis_data in file_object.processed_analysis.items()
@@ -162,5 +163,5 @@ def analysis_entry_to_dict(entry: AnalysisEntry) -> dict:
         'system_version': entry.system_version,
         'summary': entry.summary or [],
         'tags': entry.tags or {},
-        **(entry.result or {}),
+        'result': entry.result or {},
     }

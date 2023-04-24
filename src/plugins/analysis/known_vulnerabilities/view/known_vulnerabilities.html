@@ -2,7 +2,7 @@
 
 {% block analysis_result_details %}
 
-{% set analysis = firmware.processed_analysis[selected_analysis] %}
+{% set analysis = result %}
 {% for key in analysis %}
     {% if key | is_not_mandatory_analysis_entry %}
         <tr>
