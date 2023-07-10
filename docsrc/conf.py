@@ -99,6 +99,7 @@ autodoc_mock_imports = [
     'redis',
     'requests',
     'rich',
+    'semver',
     'si_prefix',
     'sqlalchemy',
     'ssdeep',
