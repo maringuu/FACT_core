@@ -24,3 +24,6 @@ bleach==5.0.1
 
 # Used to start radare
 docker-compose==1.29.2
+
+# Figuring out if the analysis is outdated
+semver==3.0.1
